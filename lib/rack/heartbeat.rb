@@ -16,5 +16,5 @@ module Rack
   end
 end
 
-require 'heartbeat/railtie' if defined?(Rails)
+require File.expand_path('../heartbeat/railtie', __FILE__) if defined?(Rails)
 

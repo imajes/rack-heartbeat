@@ -1,4 +1,4 @@
-module Rack::Heartbeat
+module Rack
 
   class HeartBeatRailtie < Rails::Railtie
     initializer "heartbeat.initializer" do |app|
