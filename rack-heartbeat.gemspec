@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require 'rack'
+#require 'rack'
 
 Gem::Specification.new do |gem|
   gem.authors       = ["James Cox"]
