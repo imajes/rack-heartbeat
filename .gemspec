@@ -1,11 +1,10 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/rack/heartbeat', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["James Cox"]
   gem.email         = ["james@imaj.es"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{a stupid simple endpoint for returning a 200 OK for your app when hitting /heartbeat}
+  gem.summary       = %q{health monitoring endpoint for your app}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
@@ -13,6 +12,6 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "rack-heartbeat"
   gem.require_paths = ["lib"]
-  gem.version       = Rack::Heartbeat::VERSION
+  gem.version       = "0.5"
   gem.add_dependency('rack')
 end
