@@ -1,10 +1,8 @@
 module Rack
 
   class Heartbeat::Railtie < Rails::Railtie
-    require 'middleware'
-
     initializer "rack.heartbeat.initializer" do |app|
-      app.middleware.insert_before('Rack::Lock', 'Rack::Heartbeat')
+      app.middleware.insert 0, 'Rack::Heartbeat'
     end
   end
 
