@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 require 'rack'
-require File.expand_path('../lib/rack/heartbeat/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["James Cox"]
@@ -14,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "rack-heartbeat"
   gem.require_paths = ["lib"]
-  gem.version       = Rack::Heartbeat::VERSION
+  gem.version       = '0.5'
 
   # deps
   gem.add_dependency('rack')
