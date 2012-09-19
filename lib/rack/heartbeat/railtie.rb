@@ -1,6 +1,6 @@
 module Rack
 
-  class HeartBeat::Railtie < Rails::Railtie
+  class Heartbeat::Railtie < Rails::Railtie
     require 'middleware'
 
     initializer "rack.heartbeat.initializer" do |app|
