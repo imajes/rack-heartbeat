@@ -1,6 +1,6 @@
 # Rack::Heartbeat
 
-TODO: Write a gem description
+A tiny gem that installs a Rack middleware to respond to heartbeat requests.  This saves you all the trouble of creating custom controllers, routes, and static files, and prevents your logs from bloating.
 
 ## Installation
 
@@ -18,7 +18,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Once the gem is installed, you're done.  Just browse to localhost:300/heartbeat to get a text response with "OK".
+
+If you want to customize the url for any reason, you can configure that, too:
+
+```ruby
+#config/initilializers/rack_heartbeat.rb
+Rack::Heartbeat.setup do |config|
+  config.heartbeat_path = 'health-check.txt'
+end
+```
 
 ## Contributing
 
@@ -27,3 +36,8 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Contributors
+
+* [James Cox](https://github.com/imajes)
+* [Steve Mitchell](http://github.com/theSteveMitchell)
