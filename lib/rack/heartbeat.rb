@@ -12,6 +12,7 @@ module Rack
 
     def call(env)
       if env['PATH_INFO'] == "/#{heartbeat_path}"
+        NewRelic::Agent.ignore_transaction if defined? NewRelic
         [200, {"Content-Type" => "text/plain"}, ["OK"]]
       else
         @app.call(env)
