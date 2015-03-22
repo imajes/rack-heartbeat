@@ -3,9 +3,18 @@ module Rack
   # that returns status 200 and content OK when executed.
 
   class Heartbeat
-    cattr_accessor :heartbeat_path
     @@heartbeat_path = 'heartbeat'
-    
+
+    class << self
+      def heartbeat_path
+        @@heartbeat_path
+      end
+
+      def heartbeat_path=(path)
+        @@heartbeat_path = path
+      end
+    end
+
     def initialize(app)
       @app = app
     end
@@ -17,6 +26,10 @@ module Rack
       else
         @app.call(env)
       end
+    end
+
+    def heartbeat_path
+      self.class.heartbeat_path
     end
 
     def self.setup

@@ -12,8 +12,9 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "rack-heartbeat"
   gem.require_paths = ["lib"]
-  gem.version       = '1.0'
+  gem.version       = '1.0.1'
 
-  # deps
-  gem.add_dependency('rack')
+  gem.add_development_dependency('minitest')
+  gem.add_development_dependency('rack-test')
+  gem.add_runtime_dependency('rack')
 end
