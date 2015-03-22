@@ -23,7 +23,7 @@ Once the gem is installed, you're done.  Just browse to localhost:300/heartbeat 
 If you want to customize the url for any reason, you can configure that, too:
 
 ```ruby
-#config/initilializers/rack_heartbeat.rb
+#config/initializers/rack_heartbeat.rb
 Rack::Heartbeat.setup do |config|
   config.heartbeat_path = 'health-check.txt'
 end
