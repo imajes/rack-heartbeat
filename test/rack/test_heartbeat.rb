@@ -1,4 +1,5 @@
 require 'helper'
+require 'base64'
 
 class Rack::TestHeartbeat < Minitest::Test
   def setup
@@ -9,7 +10,9 @@ class Rack::TestHeartbeat < Minitest::Test
   def teardown
     Rack::Heartbeat.setup do |config|
       config.heartbeat_path = 'heartbeat'
-    end
+      config.heartbeat_headers = {'Content-Type' => 'text/plain'}
+      config.heartbeat_response = 'OK'
+     end
   end
 
   def test_initialize_sets_default_heartbeat_path
@@ -47,11 +50,20 @@ class Rack::TestHeartbeat < Minitest::Test
   end
 
   def test_setup_configures_heartbeat_path
-    expected = 'health-check.txt'
+    expected_path = 'health-check.txt'
+    expected_headers = {'Content-Type' => 'image/gif'}
+    expected_response = Base64.decode64('R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==')
+    env = {'PATH_INFO' => "/#{expected_path}"}
+
     Rack::Heartbeat.setup do |config|
-      config.heartbeat_path = expected
+      config.heartbeat_path = expected_path
+      config.heartbeat_headers = expected_headers
+      config.heartbeat_response = expected_response
     end
 
-    assert_match expected, Rack::Heartbeat.heartbeat_path
+    assert_match expected_path, Rack::Heartbeat.heartbeat_path
+    assert_equal expected_headers, Rack::Heartbeat.heartbeat_headers
+    assert_equal expected_response, Rack::Heartbeat.heartbeat_response
+    assert_equal [200, expected_headers, [expected_response]], @heartbeat.call(env)
   end
 end
