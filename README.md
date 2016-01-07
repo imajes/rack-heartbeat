@@ -6,7 +6,7 @@ A tiny gem that installs a Rack middleware to respond to heartbeat requests.  Th
 
 Add this line to your application's Gemfile:
 
-    gem 'rack-heartbeat'
+    gem 'conjur-rack-heartbeat'
 
 And then execute:
 
@@ -14,20 +14,11 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install rack-heartbeat
+    $ gem install conjur-rack-heartbeat
 
 ## Usage
 
-Once the gem is installed, you're done.  Just browse to localhost:300/heartbeat to get a text response with "OK".
-
-If you want to customize the url for any reason, you can configure that, too:
-
-```ruby
-#config/initializers/rack_heartbeat.rb
-Rack::Heartbeat.setup do |config|
-  config.heartbeat_path = 'health-check.txt'
-end
-```
+Once the gem is installed, you're done.  Just `curl -X OPTIONS localhost:3000` to get a text response with "OK".
 
 ## Contributing
 

@@ -1,35 +1,24 @@
 module Rack
-  # A heartbeat mechanism for the server. This will add a _/heartbeat_ endpoint
-  # that returns status 200 and content OK when executed.
+  # A heartbeat mechanism for the server. This will add a _/_ endpoint
+  # that responds to OPTIONS, returning status 200 when executed.
 
   class Heartbeat
-    @@heartbeat_path = 'heartbeat'
+    DEFAULT_ALLOW = %w(HEAD GET PUT DELETE OPTIONS)
 
-    class << self
-      def heartbeat_path
-        @@heartbeat_path
-      end
-
-      def heartbeat_path=(path)
-        @@heartbeat_path = path
-      end
-    end
-
-    def initialize(app)
+    attr_accessor :allow
+    
+    def initialize(app, allow = nil)
       @app = app
+      @allow = allow || DEFAULT_ALLOW
     end
-
+    
     def call(env)
-      if env['PATH_INFO'] == "/#{heartbeat_path}"
+      if env['PATH_INFO'] == "/" && (env['REQUEST_METHOD']||'').upcase == 'OPTIONS'
         NewRelic::Agent.ignore_transaction if defined? NewRelic
-        [200, {"Content-Type" => "text/plain"}, ["OK"]]
+        [200, {"Content-Type" => "text/plain", "Allow" => @allow.join(',')}, ["OK"]]
       else
         @app.call(env)
       end
-    end
-
-    def heartbeat_path
-      self.class.heartbeat_path
     end
 
     def self.setup
