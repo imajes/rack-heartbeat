@@ -7,3 +7,10 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList['test/**/test*.rb']
   t.verbose = true
 end
+
+Rake::TestTask.new(:jenkins) do |t|
+  t.libs << 'test'
+  t.test_files = FileList['test/**/test*.rb']
+  t.options = '--junit'
+  t.verbose = true
+end
