@@ -8,7 +8,7 @@ module Conjur
         def self.extended cls
           cls.module_eval do
             
-            configure :appliance do
+            configure do
               use ::Rack::Heartbeat
             end
 
