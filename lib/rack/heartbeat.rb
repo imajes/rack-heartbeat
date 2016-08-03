@@ -6,6 +6,7 @@ module Rack
     @@heartbeat_path = 'heartbeat'
     @@heartbeat_response = 'OK'
     @@heartbeat_headers = {"Content-Type" => "text/plain"}
+    @@heartbeat_allowed_ip_list = []
 
     class << self
       def heartbeat_path
@@ -31,6 +32,14 @@ module Rack
       def heartbeat_headers=(headers_hash)
         @@heartbeat_headers = headers_hash
       end
+
+      def heartbeat_allowed_ip_list
+        @@heartbeat_allowed_ip_list
+      end
+
+      def heartbeat_allowed_ip_list=(ip_list)
+        @@heartbeat_allowed_ip_list = ip_list
+      end
     end
 
     def initialize(app)
@@ -39,8 +48,18 @@ module Rack
 
     def call(env)
       if env['PATH_INFO'] == "/#{heartbeat_path}"
-        NewRelic::Agent.ignore_transaction if defined? NewRelic
-        [200, heartbeat_headers, [heartbeat_response]]
+        request_ip = ::Rack::Request.new(env).ip
+
+        if heartbeat_allowed_ip_list.any?
+          if heartbeat_allowed_ip_list.include?(request_ip)
+            NewRelic::Agent.ignore_transaction if defined? NewRelic
+            [200, heartbeat_headers, [heartbeat_response]]
+          else
+            [403, heartbeat_headers, ["Request forbidden for #{request_ip}"]]
+          end
+        else
+          [200, heartbeat_headers, [heartbeat_response]]
+        end
       else
         @app.call(env)
       end
@@ -56,6 +75,10 @@ module Rack
 
     def heartbeat_headers
       self.class.heartbeat_headers
+    end
+
+    def heartbeat_allowed_ip_list
+      self.class.heartbeat_allowed_ip_list
     end
 
     def self.setup
