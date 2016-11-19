@@ -40,6 +40,15 @@ Rack::Heartbeat.setup do |config|
 end
 ```
 
+You can whitelist client IPs allowed to check for hearbeat:
+
+```ruby
+# config/initializers/rack_heartbeat.rb
+Rack::Heartbeat.setup do |config|
+  config.heartbeat_allowed_ip_list = ["127.0.0.1"]
+end
+```
+
 ## Contributing
 
 1. Fork it
