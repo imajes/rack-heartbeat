@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "conjur-rack-heartbeat"
   gem.require_paths = ["lib"]
-  gem.version       = '2.1.0'
+  gem.version       = '2.2.0'
 
   gem.add_development_dependency('minitest')
   gem.add_development_dependency('rack-test')

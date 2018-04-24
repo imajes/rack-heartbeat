@@ -1,4 +1,4 @@
-report.xml
+test/junit.xml
 *.gem
 *.rbc
 .bundle
@@ -7,7 +7,7 @@ report.xml
 Gemfile.lock
 InstalledFiles
 _yardoc
-coverage
+coverage/
 doc/
 lib/bundler/man
 pkg

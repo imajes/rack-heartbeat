@@ -11,6 +11,6 @@ end
 Rake::TestTask.new(:jenkins) do |t|
   t.libs << 'test'
   t.test_files = FileList['test/**/test*.rb']
-  t.options = '--junit'
+  t.options = '--junit --junit-filename=test/junit.xml --junit-jenkins'
   t.verbose = true
 end
