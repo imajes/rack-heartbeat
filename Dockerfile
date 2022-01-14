@@ -1,4 +1,4 @@
-FROM ruby:2.2
+FROM registry.tld/cyberark/ubuntu-ruby-fips:latest
 
 WORKDIR /usr/src/app
 
